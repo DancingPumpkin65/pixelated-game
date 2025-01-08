@@ -1,16 +1,13 @@
-flag = false
+let canJump = true
 window.addEventListener('keydown', (event) => {
     switch (event.key) {
         case 'w':
-
-            if (player.velocity.y === 0 && flag == false) {
-                flag = true
+            if (player.velocity.y === 0 && canJump == true) {
+                canJump = false
                 player.velocity.y = -15
                 setTimeout(() => {
-                    flag = false
+                    canJump = true
                 }, 450)
-                
-                
             }
             break
         case 'a':
