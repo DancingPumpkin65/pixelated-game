@@ -1,5 +1,3 @@
-import Player from './classes/Player';
-
 export const setupEventListeners = (player, keys, setCanJump, doors) => {
     let canJump = true;
 

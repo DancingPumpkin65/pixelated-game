@@ -2,7 +2,7 @@ import Sprite from './Sprite';
 
 class Player extends Sprite {
     constructor({ c, canvas, collisionBlocks = [], imageSrc, frameRate, animations, loop }) {
-        super({ imageSrc, frameRate, animations, loop })
+        super({ c, imageSrc, frameRate, animations, loop })
         this.c = c
         this.canvas = canvas
         this.position = {

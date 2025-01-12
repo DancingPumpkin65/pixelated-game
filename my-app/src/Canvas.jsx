@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './components/utils';
 import { collisionsLevel1, collisionsLevel2, collisionsLevel3 } from './components/data/collisions';
+import React, { useEffect, useRef, useState } from 'react';
+import { setupEventListeners } from './components/EventListeners.js';
 import Sprite from './components/classes/Sprite';
 import Player from './components/classes/Player';
+import './components/utils';
 import gsap from 'gsap';
-import { setupEventListeners } from './components/EventListeners';
 
 const Canvas = () => {
     const canvasRef = useRef(null);

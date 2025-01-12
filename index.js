@@ -186,9 +186,6 @@ function animate() {
     window.requestAnimationFrame(animate)
 
     background.draw()
-    // collisionBlocks.forEach((collisionBlock) => {
-    //   collisionBlock.draw()
-    // })
     
     doors.forEach((door) => {
         door.draw()
