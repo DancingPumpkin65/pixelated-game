@@ -7,7 +7,7 @@ export default class CollisionBlock {
     }
 
     draw() {
-        this.c.fillStyle = 'rgba(255, 0, 0, 0.5)'
+        this.c.fillStyle = 'rgba(255, 0, 0, 0)'
         this.c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }

@@ -9,7 +9,7 @@ import { setupEventListeners } from './components/EventListeners';
 const Canvas = () => {
     const canvasRef = useRef(null);
     const [canJump, setCanJump] = useState(true);
-    const keys = { a: { pressed: false }, d: { pressed: false } };
+    const keys = { w: { pressed: false }, a: { pressed: false }, d: { pressed: false } };
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -60,11 +60,11 @@ const Canvas = () => {
                     loop: false,
                     imageSrc: '/img/king/enterDoor.png',
                     onComplete: () => {
-                        console.log('completed')
                         gsap.to(overlay, {
                             opacity: 1,
                             onComplete: () => {
                                 level++
+                                console.log('completed')
 
                                 if (level === 4) level = 1
                                 levels[level].init()
