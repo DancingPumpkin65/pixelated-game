@@ -1,10 +1,10 @@
 ## Pixelated Game 🎮
 
 A fun and simple pixelated game where players navigate through three challenging levels using keyboard controls. This game features smooth mechanics and retro aesthetics for an immersive gaming experience.
-![Gameplay Preview](./img/IQCAru.gif)
 
 ### Live Demo 🔗
 Play the game here: [Pixelated Game](https://dancingpumpkin65.github.io/pixelated-game/)
+![Gameplay Preview](./img/IQCAru.gif)
 
 ---
 
@@ -33,7 +33,8 @@ Navigate through levels and avoid obstacles while discovering new challenges!
 ---
 
 ### Development Details 🛠️
-- **Technologies Used**: JavaScript, HTML5, CSS3, Canvas API.
+- **Technologies Used**: JavaScript, HTML5, CSS3.
+- **Inspiration**: The game draws its retro aesthetic and design inspiration from [Pixel Frog's Kings and Pigs](https://pixelfrog-assets.itch.io/kings-and-pigs).
 - **Key Features**:  
   - Smooth jump mechanics with a cooldown to prevent multiple jumps.  
   - Interactive level transitions triggered by user actions.  
