@@ -33,7 +33,7 @@ Navigate through levels and avoid obstacles while discovering new challenges!
 ---
 
 ### Development Details 🛠️
-- **Technologies Used**: JavaScript, HTML5, CSS3, Canvas API.
+- **Technologies Used**: JavaScript, HTML5, CSS3.
 - **Inspiration**: The game draws its retro aesthetic and design inspiration from [Pixel Frog's Kings and Pigs](https://pixelfrog-assets.itch.io/kings-and-pigs).
 - **Key Features**:  
   - Smooth jump mechanics with a cooldown to prevent multiple jumps.  
