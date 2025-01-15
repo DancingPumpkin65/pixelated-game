@@ -64,7 +64,7 @@ const player = new Player({
     }
 })
 
-let level = 3
+let level = 1
 let levels = {
     1: {
         init: () => {
@@ -95,6 +95,7 @@ let levels = {
                     autoplay: false
                 })
             ]
+            console.log(doors)
         }
     },
     2: {

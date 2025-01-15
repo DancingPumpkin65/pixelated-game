@@ -6,6 +6,7 @@ window.addEventListener('keydown', (event) => {
 
         for (let i = 0; i < doors.length; i++) {
             const door = doors[i]
+            console.log(doors);
 
             if (player.hitbox.position.x + player.hitbox.width <= door.position.x + door.width &&
                 player.hitbox.position.x >= door.position.x &&
