@@ -9,62 +9,8 @@ let parsedCollisions
 let collisionBlocks
 let background
 let doors
+let level = 1;
 
-const player = new Player({
-    imageSrc: './img/king/idle.png',
-    frameRate: 11,
-    animations: {
-        idleRight: {
-            frameRate: 11,
-            frameBuffer: 3,
-            loop: true,
-            imageSrc: './img/king/idle.png'
-        },
-        idleLeft: {
-            frameRate: 11,
-            frameBuffer: 3,
-            loop: true,
-            imageSrc: './img/king/idleLeft.png'
-        },
-        runRight: {
-            frameRate: 8,
-            frameBuffer: 4,
-            loop: true,
-            imageSrc: './img/king/runRight.png'
-        },
-        runLeft: {
-            frameRate: 8,
-            frameBuffer: 4,
-            loop: true,
-            imageSrc: './img/king/runLeft.png'
-        },
-        enterDoor: {
-            frameRate: 8,
-            frameBuffer: 4,
-            loop: false,
-            imageSrc: './img/king/enterDoor.png',
-            onComplete: () => {
-                console.log('completed')
-                gsap.to(overlay, {
-                    opacity: 1,
-                    onComplete: () => {
-                        level++
-
-                        if (level === 4) level = 1
-                        levels[level].init()
-                        player.switchSprite('idleRight')
-                        player.preventInput = false
-                        gsap.to(overlay, {
-                            opacity: 0
-                        })
-                    }
-                })
-            }
-        }
-    }
-})
-
-let level = 1
 let levels = {
     1: {
         init: () => {
@@ -95,7 +41,6 @@ let levels = {
                     autoplay: false
                 })
             ]
-            console.log(doors)
         }
     },
     2: {
@@ -178,11 +123,11 @@ const keys = {
     }
 }
 
-const overlay = {
-    opacity: 0
-}
+const player = new Player({
+    levels: levels
+})
 
-// Animate Player
+// Animate Player   
 function animate() {
     window.requestAnimationFrame(animate)
 
@@ -198,7 +143,7 @@ function animate() {
 
     // Level switch
     c.save()
-    c.globalAlpha = overlay.opacity
+    c.globalAlpha = player.overlay.opacity
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
     c.restore()

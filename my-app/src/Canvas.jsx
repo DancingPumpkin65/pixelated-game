@@ -67,7 +67,7 @@ const Canvas = () => {
                                 if (level === 4) level = 1;
                                 levels[level].init();
                                 setupEventListeners(player, keys, setCanJump, doors);
-                                setCanJump(true); // Update the state
+                                setCanJump(true);
                                 player.switchSprite('idleRight');
                                 player.preventInput = false;
                                 gsap.to(overlay, {

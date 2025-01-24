@@ -1,19 +1,82 @@
 class Player extends Sprite {
-    constructor({ collisionBlocks = [], imageSrc, frameRate, animations, loop }) {
-        super({ imageSrc, frameRate, animations, loop })
-        this.position = {
-            x: 200,
-            y: 200
-        }
-        this.velocity = {
-            x: 0,
-            y: 0
-        }
-        this.gravity = 1
-        this.sides = {
-            bottom: this.position.y + this.height
-        }
-        this.collisionBlocks = collisionBlocks
+    constructor({
+        collisionBlocks = [],
+        position = { x: 200, y: 200 },
+        gravity = 1,
+        overlay = { opacity: 0 },
+        levels,
+        level = 1,
+        setupEventListeners,
+        setCanJump,
+        keys,
+    } = {}) {
+        const defaultAnimations = {
+            idleRight: {
+                frameRate: 11,
+                frameBuffer: 3,
+                loop: true,
+                imageSrc: './img/king/idle.png',
+            },
+            idleLeft: {
+                frameRate: 11,
+                frameBuffer: 3,
+                loop: true,
+                imageSrc: './img/king/idleLeft.png',
+            },
+            runRight: {
+                frameRate: 8,
+                frameBuffer: 4,
+                loop: true,
+                imageSrc: './img/king/runRight.png',
+            },
+            runLeft: {
+                frameRate: 8,
+                frameBuffer: 4,
+                loop: true,
+                imageSrc: './img/king/runLeft.png',
+            },
+            enterDoor: {
+                frameRate: 8,
+                frameBuffer: 4,
+                loop: false,
+                imageSrc: './img/king/enterDoor.png',
+                onComplete: () => {
+                    gsap.to(this.overlay, {
+                        opacity: 1,
+                        onComplete: () => {
+                            this.level++
+    
+                            if (this.level === 4) this.level = 1
+                            this.levels[this.level].init()
+                            player.switchSprite('idleRight')
+                            player.preventInput = false
+                            gsap.to(this.overlay, {
+                                opacity: 0
+                            })
+                        },
+                    });
+                },
+            },
+        };
+
+        super({
+            imageSrc: defaultAnimations.idleRight.imageSrc,
+            frameRate: defaultAnimations.idleRight.frameRate,
+            animations: defaultAnimations,
+        });
+
+        this.position = position;
+        this.velocity = { x: 0, y: 0 };
+        this.gravity = gravity;
+        this.sides = { bottom: this.position.y + this.height };
+        this.collisionBlocks = collisionBlocks;
+        this.overlay = overlay;
+        this.levels = levels;
+        this.level = level;
+        this.setupEventListeners = setupEventListeners;
+        this.setCanJump = setCanJump;
+        this.keys = keys;
+        this.animations = defaultAnimations;
     }
 
     update() {
@@ -71,7 +134,6 @@ class Player extends Sprite {
     checkForHorizontalCollisions() {
         for (let i = 0; i < this.collisionBlocks.length; i++) {
             const collisionBlock = this.collisionBlocks[i]
-            // If a collision exist
             if (this.hitbox.position.x <= collisionBlock.position.x + collisionBlock.width &&
                 this.hitbox.position.x + this.hitbox.width >= collisionBlock.position.x &&
                 this.hitbox.position.y + this.hitbox.height >= collisionBlock.position.y &&
@@ -99,7 +161,6 @@ class Player extends Sprite {
     checkForVerticalCollisions() {
         for (let i = 0; i < this.collisionBlocks.length; i++) {
             const collisionBlock = this.collisionBlocks[i]
-            // If a collision exist
             if (this.hitbox.position.x <= collisionBlock.position.x + collisionBlock.width &&
                 this.hitbox.position.x + this.hitbox.width >= collisionBlock.position.x &&
                 this.hitbox.position.y + this.hitbox.height >= collisionBlock.position.y &&

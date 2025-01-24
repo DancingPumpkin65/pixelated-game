@@ -26,7 +26,7 @@ class Player extends Sprite {
         this.updateHitbox()
 
         this.checkForHorizontalCollisions()
-        
+
         this.applyGravity()
 
         this.updateHitbox()
