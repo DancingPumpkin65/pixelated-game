@@ -10,106 +10,6 @@ let collisionBlocks
 let background
 let doors
 
-// let levels = {
-//     1: {
-//         init: () => {
-//             parsedCollisions = collisionsLevel1.parse2D()
-//             collisionBlocks = parsedCollisions.createObjectsFrom2D()
-//             player.collisionBlocks = collisionBlocks
-
-//             if (player.currentAnimation) player.currentAnimation.isActive = false
-
-//             background = new Sprite({
-//                 position: {
-//                     x: 0,
-//                     y: 0
-//                 },
-//                 imageSrc: './img/backgroundLevel1.png'
-//             })
-
-//             doors = [
-//                 new Sprite({
-//                     position: {
-//                         x: 766,
-//                         y: 272
-//                     },
-//                     imageSrc: './img/doorOpen.png',
-//                     frameRate: 5,
-//                     frameBuffer: 5,
-//                     loop: false,
-//                     autoplay: false
-//                 })
-//             ]
-//         }
-//     },
-//     2: {
-//         init: () => {
-//             parsedCollisions = collisionsLevel2.parse2D()
-//             collisionBlocks = parsedCollisions.createObjectsFrom2D()
-//             player.collisionBlocks = collisionBlocks
-//             player.position.x = 98
-//             player.position.y = 158
-
-//             if (player.currentAnimation) player.currentAnimation.isActive = false
-
-//             background = new Sprite({
-//                 position: {
-//                     x: 0,
-//                     y: 0
-//                 },
-//                 imageSrc: './img/backgroundLevel2.png'
-//             })
-
-//             doors = [
-//                 new Sprite({
-//                     position: {
-//                         x: 772,
-//                         y: 336
-//                     },
-//                     imageSrc: './img/doorOpen.png',
-//                     frameRate: 5,
-//                     frameBuffer: 5,
-//                     loop: false,
-//                     autoplay: false
-//                 })
-//             ]
-//         }
-//     },
-//     3: {
-//         init: () => {
-//             parsedCollisions = collisionsLevel3.parse2D()
-//             collisionBlocks = parsedCollisions.createObjectsFrom2D()
-//             player.collisionBlocks = collisionBlocks
-//             player.position.x = 750
-//             player.position.y = 230
-
-//             if (player.currentAnimation) player.currentAnimation.isActive = false
-
-//             background = new Sprite({
-//                 position: {
-//                     x: 0,
-//                     y: 0
-//                 },
-//                 imageSrc: './img/backgroundLevel3.png'
-//             })
-
-//             doors = [
-//                 new Sprite({
-//                     position: {
-//                         x: 176,
-//                         y: 335
-//                     },
-//                     imageSrc: './img/doorOpen.png',
-//                     frameRate: 5,
-//                     frameBuffer: 5,
-//                     loop: false,
-//                     autoplay: false
-//                 })
-//             ]
-//         }
-//     }
-// }
-
 const keys = {
     w: {
         pressed: false
@@ -118,6 +18,9 @@ const keys = {
         pressed: false
     },
     d: {
+        pressed: false
+    },
+    space: {
         pressed: false
     }
 }
@@ -146,7 +49,8 @@ let levels = {
 
 // Create a new player
 const player = new Player({
-    levels: levels
+    levels: levels,
+    keys: keys
 })
 
 // Animate Player   

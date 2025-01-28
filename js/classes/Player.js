@@ -35,6 +35,18 @@ class Player extends Sprite {
                 loop: true,
                 imageSrc: './img/king/runLeft.png',
             },
+            attackRight: {
+                frameRate: 3,
+                frameBuffer: 7,
+                loop: true,
+                imageSrc: './img/king/attackRight.png',
+            },
+            attackLeft: {
+                frameRate: 3,
+                frameBuffer: 5,
+                loop: true,
+                imageSrc: './img/king/attackLeft.png',
+            },
             enterDoor: {
                 frameRate: 8,
                 frameBuffer: 4,
@@ -76,48 +88,65 @@ class Player extends Sprite {
         this.setupEventListeners = setupEventListeners;
         this.setCanJump = setCanJump;
         this.keys = keys;
+        this.lastDirection = 'right';
+        this.isAttacking = false;
         this.animations = defaultAnimations;
     }
 
     update() {
         this.position.x += this.velocity.x
-
         this.updateHitbox()
-
         this.checkForHorizontalCollisions()
-        
         this.applyGravity()
-
         this.updateHitbox()
-        
         this.checkForVerticalCollisions()
+
+        // Check if the attack animation is complete
+        if (this.isAttacking && this.currentFrame >= this.frameRate - 1) {
+            this.isAttacking = false;
+            if (this.lastDirection === 'right') {
+                this.switchSprite('idleRight');
+            } else {
+                this.switchSprite('idleLeft');
+            }
+        }
     }
 
     handleInput(keys) {
-        if (this.preventInput) return
-        this.velocity.x = 0
+        if (this.preventInput || this.isAttacking) return;
+        this.velocity.x = 0;
         if (keys.d.pressed) {
-            this.switchSprite('runRight')
-            this.velocity.x = 5
-            this.lastDirection = 'right'
+            this.switchSprite('runRight');
+            this.velocity.x = 5;
+            this.lastDirection = 'right';
         } else if (keys.a.pressed) { 
-            this.switchSprite('runLeft')
-            this.velocity.x = -5
-            this.lastDirection = 'left'
+            this.switchSprite('runLeft');
+            this.velocity.x = -5;
+            this.lastDirection = 'left';
         } else {
-            if (this.lastDirection === 'left') this.switchSprite('idleLeft')
-            else this.switchSprite('idleRight')
+            if (this.lastDirection === 'left') this.switchSprite('idleLeft');
+            else this.switchSprite('idleRight');
         }
     }
 
     switchSprite(name) {
         if (this.image === this.animations[name].image) return
+        console.log(`Switching to sprite: ${name}`)
         this.currentFrame = 0
         this.image = this.animations[name].image
         this.frameRate = this.animations[name].frameRate
         this.frameBuffer = this.animations[name].frameBuffer
         this.loop = this.animations[name].loop
         this.currentAnimation = this.animations[name]
+    }
+
+    attack() {
+        this.isAttacking = true;
+        if (this.lastDirection === 'right') {
+            this.switchSprite('attackRight');
+        } else {
+            this.switchSprite('attackLeft');
+        }
     }
 
     updateHitbox() {
