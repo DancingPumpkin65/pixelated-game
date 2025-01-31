@@ -3,6 +3,7 @@
 A fun and simple pixelated game where players navigate through three challenging levels using keyboard controls. This game features smooth mechanics and retro aesthetics for an immersive gaming experience.
 
 ### Live Demo 🔗
+Play the game here: [Pixelated Game](https://dancingpumpkin65.github.io/pixelated-game/)
 ![Gameplay Preview](./img/IQCAru.gif)
 
 ---
