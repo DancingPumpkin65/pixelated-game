@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.it.itdemo.service.LevelServiceTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.148 s -- in com.it.itdemo.service.LevelServiceTest

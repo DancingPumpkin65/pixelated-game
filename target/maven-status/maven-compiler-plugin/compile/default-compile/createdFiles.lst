@@ -1,6 +1,0 @@
-com\it\itdemo\dataAcces\entity\Level.class
-com\it\itdemo\config\CorsFilter.class
-com\it\itdemo\ItDemoApplication.class
-com\it\itdemo\service\LevelService.class
-com\it\itdemo\dataAcces\repo\LevelRepo.class
-com\it\itdemo\controller\LevelController.class
