@@ -6,7 +6,7 @@ class Level {
         this.playerStartPosition = playerStartPosition;
     }
 
-    init() {
+    init(player) {
         const parsedCollisions = this.collisionsLevel.parse2D();
         const collisionBlocks = parsedCollisions.createObjectsFrom2D();
         player.collisionBlocks = collisionBlocks;

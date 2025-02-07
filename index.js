@@ -25,55 +25,55 @@ const keys = {
     }
 }
 
-// Create levels
-let levels = {
-    1: new Level({
-        collisionsLevel: collisionsLevel1,
-        backgroundImageSrc: './img/backgroundLevel1.png',
-        doorPosition: { x: 766, y: 272 },
-        playerStartPosition: { x: 200, y: 200 }
-    }),
-    2: new Level({
-        collisionsLevel: collisionsLevel2,
-        backgroundImageSrc: './img/backgroundLevel2.png',
-        doorPosition: { x: 772, y: 336 },
-        playerStartPosition: { x: 98, y: 158 }
-    }),
-    3: new Level({
-        collisionsLevel: collisionsLevel3,
-        backgroundImageSrc: './img/backgroundLevel3.png',
-        doorPosition: { x: 176, y: 335 },
-        playerStartPosition: { x: 750, y: 230 }
-    })
-};
+const level = 1;
 
-// Create a new player
-const player = new Player({
-    levels: levels,
-    keys: keys
-})
-
-// Animate Player   
-function animate() {
-    window.requestAnimationFrame(animate)
-
-    background.draw()
-    
-    doors.forEach((door) => {
-        door.draw()
-    })
-
-    player.handleInput(keys)
-    player.draw()
-    player.update()
-
-    // Level switch
-    c.save()
-    c.globalAlpha = player.overlay.opacity
-    c.fillStyle = 'black'
-    c.fillRect(0, 0, canvas.width, canvas.height)
-    c.restore()
+async function fetchLevelData() {
+    const response = await fetch(`http://localhost:8080/level/${level}`);
+    const levelData = await response.json()
+    console.log(levelData)
+    return levelData
 }
 
-levels[1].init()
-animate()
+fetchLevelData().then(levelData => {
+    let levels = {
+        [levelData.id]: new Level({
+            collisionsLevel: window[levelData.collisions],
+            backgroundImageSrc: levelData.backgroundImage,
+            doorPosition: { x: levelData.doorPositionX, y: levelData.doorPositionY },
+            playerStartPosition: { x: levelData.playerStartPositionX, y: levelData.playerStartPositionY }
+        })
+    }
+
+    // Create a new player
+    const player = new Player({
+        levels: levels,
+        keys: keys
+    })
+
+    window.player = player;
+
+    // Animate Player   
+    function animate() {
+        window.requestAnimationFrame(animate)
+
+        background.draw()
+        
+        doors.forEach((door) => {
+            door.draw()
+        })
+
+        player.handleInput(keys)
+        player.draw()
+        player.update()
+
+        // Level switch
+        c.save()
+        c.globalAlpha = player.overlay.opacity
+        c.fillStyle = 'black'
+        c.fillRect(0, 0, canvas.width, canvas.height)
+        c.restore()
+    }
+
+    levels[1].init(player)
+    animate()
+})

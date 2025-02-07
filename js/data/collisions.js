@@ -28,3 +28,7 @@ const collisionsLevel3 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 250, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 ]
+
+window.collisionsLevel1 = collisionsLevel1;
+window.collisionsLevel2 = collisionsLevel2;
+window.collisionsLevel3 = collisionsLevel3;

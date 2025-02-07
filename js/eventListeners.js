@@ -1,27 +1,27 @@
 let canJump = true;
 
 window.addEventListener('keydown', (event) => {
-    if (player.preventInput) return;
+    if (window.player.preventInput) return;
     switch (event.key) {
         case 'w':
             for (let i = 0; i < doors.length; i++) {
                 const door = doors[i];
 
-                if (player.hitbox.position.x + player.hitbox.width <= door.position.x + door.width &&
-                    player.hitbox.position.x >= door.position.x &&
-                    player.hitbox.position.y + player.hitbox.height >= door.position.y &&
-                    player.hitbox.position.y <= door.position.y + door.height) {
-                        player.velocity.x = 0;
-                        player.velocity.y = 0;
-                        player.preventInput = true;
-                        player.switchSprite('enterDoor');
+                if (window.player.hitbox.position.x + window.player.hitbox.width <= door.position.x + door.width &&
+                    window.player.hitbox.position.x >= door.position.x &&
+                    window.player.hitbox.position.y + window.player.hitbox.height >= door.position.y &&
+                    window.player.hitbox.position.y <= door.position.y + door.height) {
+                        window.player.velocity.x = 0;
+                        window.player.velocity.y = 0;
+                        window.player.preventInput = true;
+                        window.player.switchSprite('enterDoor');
                         door.play();
                         return;
                 }
             }
-            if (player.velocity.y === 0 && canJump) {
+            if (window.player.velocity.y === 0 && canJump) {
                 canJump = false;
-                player.velocity.y = -15;
+                window.player.velocity.y = -15;
                 setTimeout(() => {
                     canJump = true;
                 }, 450);
@@ -29,7 +29,7 @@ window.addEventListener('keydown', (event) => {
             break;
         case ' ':
             keys.space.pressed = true;
-            player.attack();
+            window.player.attack();
             break;
         case 'a':
             keys.a.pressed = true;

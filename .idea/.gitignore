@@ -1,0 +1,12 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Ignore .idea folder
+/.idea/
+
+# Ignore target folder
+/target/
+
+# Ignore .vscode folder
+/.vscode/
