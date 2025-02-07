@@ -26,54 +26,66 @@ const keys = {
 }
 
 const level = 1;
+let nextLevelData;
 
-async function fetchLevelData() {
+async function fetchLevelData(level) {
     const response = await fetch(`http://localhost:8080/level/${level}`);
-    const levelData = await response.json()
-    console.log(levelData)
-    return levelData
+    const levelData = await response.json();
+    console.log(levelData);
+    return levelData;
 }
 
-fetchLevelData().then(levelData => {
+async function loadLevels(currentLevel) {
+    const currentLevelData = await fetchLevelData(currentLevel);
+    nextLevelData = await fetchLevelData(currentLevel + 1);
+
     let levels = {
-        [levelData.id]: new Level({
-            collisionsLevel: window[levelData.collisions],
-            backgroundImageSrc: levelData.backgroundImage,
-            doorPosition: { x: levelData.doorPositionX, y: levelData.doorPositionY },
-            playerStartPosition: { x: levelData.playerStartPositionX, y: levelData.playerStartPositionY }
+        [currentLevelData.id]: new Level({
+            collisionsLevel: window[currentLevelData.collisions],
+            backgroundImageSrc: currentLevelData.backgroundImage,
+            doorPosition: { x: currentLevelData.doorPositionX, y: currentLevelData.doorPositionY },
+            playerStartPosition: { x: currentLevelData.playerStartPositionX, y: currentLevelData.playerStartPositionY }
+        }),
+        [nextLevelData.id]: new Level({
+            collisionsLevel: window[nextLevelData.collisions],
+            backgroundImageSrc: nextLevelData.backgroundImage,
+            doorPosition: { x: nextLevelData.doorPositionX, y: nextLevelData.doorPositionY },
+            playerStartPosition: { x: nextLevelData.playerStartPositionX, y: nextLevelData.playerStartPositionY }
         })
-    }
+    };
 
     // Create a new player
     const player = new Player({
         levels: levels,
         keys: keys
-    })
+    });
 
     window.player = player;
 
     // Animate Player   
     function animate() {
-        window.requestAnimationFrame(animate)
+        window.requestAnimationFrame(animate);
 
-        background.draw()
-        
+        background.draw();
+
         doors.forEach((door) => {
-            door.draw()
-        })
+            door.draw();
+        });
 
-        player.handleInput(keys)
-        player.draw()
-        player.update()
+        player.handleInput(keys);
+        player.draw();
+        player.update();
 
         // Level switch
-        c.save()
-        c.globalAlpha = player.overlay.opacity
-        c.fillStyle = 'black'
-        c.fillRect(0, 0, canvas.width, canvas.height)
-        c.restore()
+        c.save();
+        c.globalAlpha = player.overlay.opacity;
+        c.fillStyle = 'black';
+        c.fillRect(0, 0, canvas.width, canvas.height);
+        c.restore();
     }
 
-    levels[1].init(player)
-    animate()
-})
+    levels[currentLevel].init(player);
+    animate();
+}
+
+loadLevels(level);

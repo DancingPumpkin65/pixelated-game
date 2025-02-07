@@ -52,19 +52,28 @@ class Player extends Sprite {
                 frameBuffer: 4,
                 loop: false,
                 imageSrc: './img/king/enterDoor.png',
-                onComplete: () => {
+                onComplete: async () => {
                     gsap.to(this.overlay, {
                         opacity: 1,
-                        onComplete: () => {
-                            this.level++
-    
-                            if (this.level === 4) this.level = 1
-                            this.levels[this.level].init()
-                            player.switchSprite('idleRight')
-                            player.preventInput = false
+                        onComplete: async () => {
+                            this.level++;
+                            const nextLevel = this.level + 1;
+
+                            // Fetch and load the next level data
+                            const newLevelData = await fetchLevelData(nextLevel);
+                            this.levels[nextLevel] = new Level({
+                                collisionsLevel: window[newLevelData.collisions],
+                                backgroundImageSrc: newLevelData.backgroundImage,
+                                doorPosition: { x: newLevelData.doorPositionX, y: newLevelData.doorPositionY },
+                                playerStartPosition: { x: newLevelData.playerStartPositionX, y: newLevelData.playerStartPositionY }
+                            });
+
+                            this.levels[this.level].init(player);
+                            player.switchSprite('idleRight');
+                            player.preventInput = false;
                             gsap.to(this.overlay, {
                                 opacity: 0
-                            })
+                            });
                         },
                     });
                 },
@@ -131,7 +140,6 @@ class Player extends Sprite {
 
     switchSprite(name) {
         if (this.image === this.animations[name].image) return
-        console.log(`Switching to sprite: ${name}`)
         this.currentFrame = 0
         this.image = this.animations[name].image
         this.frameRate = this.animations[name].frameRate
